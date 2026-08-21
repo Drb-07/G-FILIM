@@ -28,38 +28,37 @@ if "project_id" not in st.session_state:
 if "db_connected" not in st.session_state:
     st.session_state.db_connected = False
 
-# --- MODERN WHITE & PURPLE TYPOGRAPHY & THEME (CSS) ---
+# --- LIGHT MODE: CRISP WHITE & VIBRANT PURPLE THEME (CSS) ---
 st.markdown("""
 <style>
-    /* Google Fonts: Plus Jakarta Sans & Outfit */
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-    /* Global Dark Slate / Purple Void Canvas */
+    /* Clean Light Canvas */
     .stApp {
-        background: radial-gradient(circle at top right, #1a0f35 0%, #0d081e 45%, #07040f 100%) !important;
-        color: #ffffff;
+        background-color: #f8fafc !important;
+        color: #0f172a;
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* Sidebar Clean Styling */
+    /* Light Sidebar */
     [data-testid="stSidebar"] {
-        background-color: #0b0717 !important;
-        border-right: 1px solid #231842;
+        background-color: #ffffff !important;
+        border-right: 1px solid #e2e8f0;
     }
 
-    /* Typography & Hierarchy */
+    /* Typography */
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Outfit', sans-serif !important;
-        color: #ffffff !important;
+        color: #0f172a !important;
         font-weight: 700 !important;
         letter-spacing: -0.02em;
     }
 
-    /* Brand Logo */
+    /* Brand Header */
     .brand-title {
         font-family: 'Outfit', sans-serif;
-        color: #ffffff;
-        letter-spacing: 0.12em;
+        color: #0f172a;
+        letter-spacing: 0.1em;
         font-size: 1.2rem;
         font-weight: 700;
         display: flex;
@@ -67,39 +66,40 @@ st.markdown("""
         gap: 8px;
     }
     .brand-badge {
-        background: #9333ea;
+        background: #7c3aed;
         color: #ffffff;
-        font-size: 0.6rem;
-        padding: 2px 6px;
-        border-radius: 4px;
+        font-size: 0.62rem;
+        padding: 2px 7px;
+        border-radius: 6px;
         font-weight: 700;
     }
     .brand-sub {
         font-family: 'JetBrains Mono', monospace;
-        color: #c084fc;
+        color: #7c3aed;
         font-size: 0.68rem;
-        letter-spacing: 0.2em;
+        letter-spacing: 0.18em;
         margin-top: 2px;
         margin-bottom: 20px;
+        font-weight: 600;
     }
 
-    /* Production Status Banner */
+    /* Phase Banner */
     .phase-banner {
-        background: linear-gradient(90deg, #180f33 0%, #221347 50%, #150d2e 100%);
-        border: 1px solid #3c2475;
-        border-left: 4px solid #c084fc;
+        background: linear-gradient(90deg, #ffffff 0%, #f5f3ff 100%);
+        border: 1px solid #ddd6fe;
+        border-left: 4px solid #7c3aed;
         border-radius: 12px;
         padding: 14px 22px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 20px;
-        box-shadow: 0 8px 24px rgba(147, 51, 234, 0.08);
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.05);
     }
     .phase-pill {
-        background: rgba(168, 85, 247, 0.15);
-        color: #e9d5ff;
-        border: 1px solid rgba(168, 85, 247, 0.4);
+        background: #ede9fe;
+        color: #6d28d9;
+        border: 1px solid #c4b5fd;
         padding: 4px 10px;
         border-radius: 6px;
         font-size: 0.72rem;
@@ -109,21 +109,21 @@ st.markdown("""
 
     /* Stat Cards */
     .stat-card {
-        background: rgba(22, 14, 46, 0.65);
-        border: 1px solid #2a1c54;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
         border-radius: 12px;
         padding: 18px 20px;
         min-height: 125px;
-        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
         transition: all 0.25s ease;
     }
     .stat-card:hover {
         border-color: #a855f7;
-        box-shadow: 0 6px 20px rgba(168, 85, 247, 0.15);
+        box-shadow: 0 6px 18px rgba(124, 58, 237, 0.1);
         transform: translateY(-2px);
     }
     .stat-label {
-        color: #c4b5fd;
+        color: #64748b;
         font-size: 0.75rem;
         font-weight: 600;
         text-transform: uppercase;
@@ -133,33 +133,32 @@ st.markdown("""
         font-family: 'Outfit', sans-serif;
         font-size: 2rem;
         font-weight: 700;
-        color: #ffffff;
+        color: #0f172a;
         margin: 4px 0;
     }
     .stat-value span {
-        font-size: 0.95rem;
-        color: #a78bfa;
+        font-size: 0.92rem;
+        color: #64748b;
         font-weight: 400;
     }
     .stat-footer {
-        color: #e9d5ff;
         font-size: 0.76rem;
-        font-weight: 500;
+        font-weight: 600;
     }
 
     /* Agent Zone Containers */
     .zone-box {
-        background: rgba(20, 13, 43, 0.75);
-        border: 1px solid #2d1d59;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
         border-radius: 12px;
         padding: 20px;
         margin-bottom: 20px;
         min-height: 420px;
-        border-top: 3px solid #a855f7;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
     }
-    .zone-box-creative { border-top: 3px solid #c084fc; }
-    .zone-box-onset { border-top: 3px solid #818cf8; }
-    .zone-box-post { border-top: 3px solid #e879f9; }
+    .zone-box-creative { border-top: 4px solid #7c3aed; }
+    .zone-box-onset { border-top: 4px solid #0284c7; }
+    .zone-box-post { border-top: 4px solid #c026d3; }
 
     .zone-header-wrap {
         display: flex;
@@ -171,12 +170,12 @@ st.markdown("""
         font-family: 'Outfit', sans-serif;
         font-weight: 700;
         font-size: 1.05rem;
-        color: #ffffff;
+        color: #0f172a;
     }
     .zone-pill {
-        background: rgba(168, 85, 247, 0.18);
-        color: #f3e8ff;
-        border: 1px solid rgba(168, 85, 247, 0.35);
+        background: #f5f3ff;
+        color: #6d28d9;
+        border: 1px solid #ddd6fe;
         font-size: 0.72rem;
         padding: 2px 9px;
         border-radius: 20px;
@@ -187,45 +186,47 @@ st.markdown("""
     .agent-item {
         padding: 10px 12px;
         border-radius: 8px;
-        background: #140c2e;
+        background: #f8fafc;
         margin-bottom: 10px;
-        border: 1px solid #23164a;
-        transition: border-color 0.2s ease;
+        border: 1px solid #e2e8f0;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
     }
     .agent-item:hover {
-        border-color: #7c3aed;
+        border-color: #c4b5fd;
+        background-color: #faf5ff;
     }
     .agent-item-title {
         display: flex;
         justify-content: space-between;
         font-size: 0.85rem;
         font-weight: 600;
-        color: #ffffff;
+        color: #0f172a;
     }
     .agent-item-desc {
-        font-size: 0.74rem;
-        color: #cbd5e1;
+        font-size: 0.75rem;
+        color: #475569;
         margin-top: 3px;
         line-height: 1.35;
     }
     .agent-item-alert {
-        color: #c084fc;
+        color: #6d28d9;
         font-size: 0.72rem;
         margin-top: 5px;
         font-family: 'JetBrains Mono', monospace;
-        font-weight: 500;
+        font-weight: 600;
     }
 
-    /* Activity Feed & Schedule */
+    /* Surface Card */
     .surface-card {
-        background: rgba(18, 12, 38, 0.8);
-        border: 1px solid #2b1c54;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
         border-radius: 12px;
         padding: 18px;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
     }
     .activity-row {
         padding: 10px 0;
-        border-bottom: 1px solid #221545;
+        border-bottom: 1px solid #f1f5f9;
     }
     .activity-row:last-child {
         border-bottom: none;
@@ -233,16 +234,16 @@ st.markdown("""
     .activity-agent {
         font-weight: 600;
         font-size: 0.84rem;
-        color: #ffffff;
+        color: #0f172a;
     }
     .activity-time {
         font-size: 0.72rem;
-        color: #a78bfa;
+        color: #64748b;
         margin-left: 6px;
     }
     .activity-desc {
         font-size: 0.78rem;
-        color: #e2e8f0;
+        color: #334155;
         margin-top: 2px;
     }
 
@@ -256,20 +257,20 @@ st.markdown("""
         border-radius: 4px;
     }
     .sched-tag-future {
-        background: rgba(147, 51, 234, 0.2);
-        color: #d8b4fe;
-        border: 1px solid rgba(147, 51, 234, 0.4);
+        background: #ede9fe;
+        color: #6d28d9;
+        border: 1px solid #c4b5fd;
         font-size: 0.7rem;
         font-weight: 700;
         padding: 2px 7px;
         border-radius: 4px;
     }
 
-    /* Clean Modern Button Styling */
+    /* Buttons */
     div.stButton > button {
-        background: linear-gradient(135deg, #1e133d 0%, #2d1b59 100%);
-        color: #ffffff;
-        border: 1px solid #4c2f8f;
+        background: #ffffff;
+        color: #6d28d9;
+        border: 1px solid #ddd6fe;
         border-radius: 8px;
         font-weight: 600;
         font-size: 0.82rem;
@@ -278,27 +279,24 @@ st.markdown("""
         transition: all 0.25s ease;
     }
     div.stButton > button:hover {
-        background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
-        border-color: #c084fc;
+        background: #7c3aed;
+        border-color: #7c3aed;
         color: #ffffff;
-        box-shadow: 0 4px 14px rgba(147, 51, 234, 0.35);
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
         transform: translateY(-1px);
     }
-    div.stButton > button:active {
-        transform: translateY(0);
-    }
 
-    /* Custom Form Fields */
+    /* Input Fields */
     .stTextInput input, .stTextArea textarea {
-        background-color: #120c2b !important;
-        color: #ffffff !important;
-        border: 1px solid #2e1e5c !important;
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border: 1px solid #cbd5e1 !important;
         border-radius: 8px !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
     .stTextInput input:focus, .stTextArea textarea:focus {
-        border-color: #a855f7 !important;
-        box-shadow: 0 0 0 1px #a855f7 !important;
+        border-color: #7c3aed !important;
+        box-shadow: 0 0 0 1px #7c3aed !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -332,8 +330,8 @@ with st.sidebar:
 
     st.divider()
     st.caption("ACTIVE PRODUCTION SCOPE")
-    st.markdown("<p style='font-size: 0.95rem; font-weight: 700; color: #ffffff; margin: 0;'>'The Last Meridian'</p>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size: 0.75rem; color: #c084fc; margin-top: 2px;'>Feature Film · Sci-Fi Drama</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 0.95rem; font-weight: 700; color: #0f172a; margin: 0;'>'The Last Meridian'</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 0.75rem; color: #6d28d9; margin-top: 2px; font-weight: 600;'>Feature Film · Sci-Fi Drama</p>", unsafe_allow_html=True)
     st.progress(0.41, text="Production Progress: 41%")
 
     st.divider()
@@ -357,12 +355,11 @@ with st.sidebar:
 # VIEW 1: OVERVIEW DASHBOARD
 # ==============================================================================
 if nav_choice == "Overview":
-    # Header
     st.markdown("""
     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
         <div>
             <h1 style="font-size: 1.6rem; margin: 0;">Production Dashboard</h1>
-            <p style="font-size: 0.8rem; color: #c4b5fd; font-family: 'JetBrains Mono', monospace; margin-top: 4px;">
+            <p style="font-size: 0.8rem; color: #64748b; font-family: 'JetBrains Mono', monospace; margin-top: 4px;">
                 Day 17 of 42 · Principal Photography · Aug 21, 2026
             </p>
         </div>
@@ -373,11 +370,11 @@ if nav_choice == "Overview":
     st.markdown("""
     <div class="phase-banner">
         <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="color: #c084fc; font-size: 0.85rem;">●</span>
-            <span style="font-weight: 700; font-size: 0.88rem; letter-spacing: 0.04em; color: #ffffff;">PHASE: PRINCIPAL PHOTOGRAPHY</span>
+            <span style="color: #7c3aed; font-size: 0.85rem;">●</span>
+            <span style="font-weight: 700; font-size: 0.88rem; letter-spacing: 0.04em; color: #0f172a;">PHASE: PRINCIPAL PHOTOGRAPHY</span>
             <span class="phase-pill">ON SCHEDULE</span>
         </div>
-        <div style="font-size: 0.78rem; color: #ddd6fe; font-family: 'JetBrains Mono', monospace;">
+        <div style="font-size: 0.78rem; color: #475569; font-family: 'JetBrains Mono', monospace;">
             UNIT A · Stage 6 · Studio Lot &nbsp;|&nbsp; Director: A. Fontaine &nbsp;|&nbsp; DP: R. Osei
         </div>
     </div>
@@ -390,7 +387,7 @@ if nav_choice == "Overview":
         <div class="stat-card">
             <div class="stat-label">Days in Production</div>
             <div class="stat-value">17 <span>/ 42 days</span></div>
-            <div class="stat-footer" style="color: #4ade80;">▲ 2 days ahead of schedule</div>
+            <div class="stat-footer" style="color: #16a34a;">▲ 2 days ahead of schedule</div>
         </div>
         """, unsafe_allow_html=True)
     with c2:
@@ -398,23 +395,23 @@ if nav_choice == "Overview":
         <div class="stat-card">
             <div class="stat-label">Scenes Completed</div>
             <div class="stat-value">63 <span>/ 118 scenes</span></div>
-            <div class="stat-footer" style="color: #4ade80;">53% through principal photography</div>
+            <div class="stat-footer" style="color: #16a34a;">53% through principal photography</div>
         </div>
         """, unsafe_allow_html=True)
     with c3:
         st.markdown("""
         <div class="stat-card">
             <div class="stat-label">Budget Utilized</div>
-            <div class="stat-value" style="color: #ffffff;">$2.4M <span>/ $5.8M</span></div>
-            <div class="stat-footer" style="color: #c084fc;">41% — within parameter</div>
+            <div class="stat-value">$2.4M <span>/ $5.8M</span></div>
+            <div class="stat-footer" style="color: #7c3aed;">41% — within parameter</div>
         </div>
         """, unsafe_allow_html=True)
     with c4:
         st.markdown("""
         <div class="stat-card">
             <div class="stat-label">Active Agents</div>
-            <div class="stat-value" style="color: #ffffff;">6 <span>/ 12 agents</span></div>
-            <div class="stat-footer" style="color: #4ade80;">● All systems synchronized</div>
+            <div class="stat-value">6 <span>/ 12 agents</span></div>
+            <div class="stat-footer" style="color: #16a34a;">● All systems synchronized</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -423,7 +420,6 @@ if nav_choice == "Overview":
     # 3 Agent Zone Columns
     z1, z2, z3 = st.columns(3)
 
-    # Zone 1: Creative
     with z1:
         st.markdown("""
         <div class="zone-box zone-box-creative">
@@ -431,12 +427,12 @@ if nav_choice == "Overview":
                 <span class="zone-header-title">📁 Creative</span>
                 <span class="zone-pill">2 active</span>
             </div>
-            <div style="font-size: 0.74rem; color: #a78bfa; margin-bottom: 16px;">Story development & creative vision</div>
+            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 16px;">Story development & creative vision</div>
             
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #ffffff;">● Script Doctor</span>
-                    <span style="color: #a78bfa;">3</span>
+                    <span>● Script Doctor</span>
+                    <span style="color: #7c3aed;">3</span>
                 </div>
                 <div class="agent-item-desc">Scene-level analysis, dialogue cadence, and act pacing</div>
                 <div class="agent-item-alert">↳ Reviewed Act II pacing — 3 notes pending</div>
@@ -444,24 +440,24 @@ if nav_choice == "Overview":
 
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #ffffff;">● Story Arc Analyzer</span>
-                    <span style="color: #a78bfa;">7</span>
+                    <span>● Story Arc Analyzer</span>
+                    <span style="color: #7c3aed;">7</span>
                 </div>
                 <div class="agent-item-desc">Character journey continuity & thematic motif tracking</div>
             </div>
 
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #6b7280;">○ Dialogue Coach</span>
-                    <span style="color: #6b7280;">-</span>
+                    <span style="color: #94a3b8;">○ Dialogue Coach</span>
+                    <span style="color: #94a3b8;">-</span>
                 </div>
                 <div class="agent-item-desc">Performance subtext and multi-speaker script rehearsal</div>
             </div>
 
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #6b7280;">○ Pitch Deck Builder</span>
-                    <span style="color: #6b7280;">1</span>
+                    <span style="color: #94a3b8;">○ Pitch Deck Builder</span>
+                    <span style="color: #94a3b8;">1</span>
                 </div>
                 <div class="agent-item-desc">Generates visual lookbooks & executive teasers</div>
             </div>
@@ -471,7 +467,6 @@ if nav_choice == "Overview":
             st.session_state.active_nav = "Screenwriters & Directors"
             st.rerun()
 
-    # Zone 2: On-Set
     with z2:
         st.markdown("""
         <div class="zone-box zone-box-onset">
@@ -479,37 +474,37 @@ if nav_choice == "Overview":
                 <span class="zone-header-title">🎥 On-Set</span>
                 <span class="zone-pill">3 active</span>
             </div>
-            <div style="font-size: 0.74rem; color: #a78bfa; margin-bottom: 16px;">Real-time set coordination</div>
+            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 16px;">Real-time set coordination</div>
             
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #ffffff;">● Continuity Tracker</span>
-                    <span style="color: #a78bfa;">5</span>
+                    <span>● Continuity Tracker</span>
+                    <span style="color: #0284c7;">5</span>
                 </div>
                 <div class="agent-item-desc">Prop, costume, and blocking continuity logs per take</div>
-                <div class="agent-item-alert">↳ Wardrobe discrepancy — Sc.47 Ext. Rooftop</div>
+                <div class="agent-item-alert" style="color: #0284c7;">↳ Wardrobe discrepancy — Sc.47 Ext. Rooftop</div>
             </div>
 
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #ffffff;">● Shot List Manager</span>
-                    <span style="color: #a78bfa;">12</span>
+                    <span>● Shot List Manager</span>
+                    <span style="color: #0284c7;">12</span>
                 </div>
                 <div class="agent-item-desc">Tracks camera setups, focal lengths, and scene coverage</div>
             </div>
 
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #ffffff;">● Logistics Coordinator</span>
-                    <span style="color: #a78bfa;">4</span>
+                    <span>● Logistics Coordinator</span>
+                    <span style="color: #0284c7;">4</span>
                 </div>
                 <div class="agent-item-desc">Dynamic call sheets & weather delay adjustments</div>
             </div>
 
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #6b7280;">○ Safety Monitor</span>
-                    <span style="color: #6b7280;">-</span>
+                    <span style="color: #94a3b8;">○ Safety Monitor</span>
+                    <span style="color: #94a3b8;">-</span>
                 </div>
                 <div class="agent-item-desc">Stunt compliance & environmental safety checklist verification</div>
             </div>
@@ -519,7 +514,6 @@ if nav_choice == "Overview":
             st.session_state.active_nav = "On-Set Crew"
             st.rerun()
 
-    # Zone 3: Post
     with z3:
         st.markdown("""
         <div class="zone-box zone-box-post">
@@ -527,37 +521,37 @@ if nav_choice == "Overview":
                 <span class="zone-header-title">✂️ Post</span>
                 <span class="zone-pill">2 active</span>
             </div>
-            <div style="font-size: 0.74rem; color: #a78bfa; margin-bottom: 16px;">Editorial & delivery pipeline</div>
+            <div style="font-size: 0.74rem; color: #64748b; margin-bottom: 16px;">Editorial & delivery pipeline</div>
             
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #ffffff;">● Edit Assistant</span>
-                    <span style="color: #a78bfa;">8</span>
+                    <span>● Edit Assistant</span>
+                    <span style="color: #c026d3;">8</span>
                 </div>
                 <div class="agent-item-desc">Dailies tagging, metadata sync, and timeline assembly</div>
             </div>
 
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #6b7280;">○ Color Grade Advisor</span>
-                    <span style="color: #6b7280;">2</span>
+                    <span style="color: #94a3b8;">○ Color Grade Advisor</span>
+                    <span style="color: #94a3b8;">2</span>
                 </div>
                 <div class="agent-item-desc">LUT consistency auditing & exposure balance checks</div>
             </div>
 
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #ffffff;">● VFX Pipeline Monitor</span>
-                    <span style="color: #a78bfa;">6</span>
+                    <span>● VFX Pipeline Monitor</span>
+                    <span style="color: #c026d3;">6</span>
                 </div>
                 <div class="agent-item-desc">Tracks shot status across vendors & flags delays</div>
-                <div class="agent-item-alert">↳ 3 hero shots cleared from Vendor B</div>
+                <div class="agent-item-alert" style="color: #c026d3;">↳ 3 hero shots cleared from Vendor B</div>
             </div>
 
             <div class="agent-item">
                 <div class="agent-item-title">
-                    <span style="color: #6b7280;">○ Sound Mix Advisor</span>
-                    <span style="color: #6b7280;">1</span>
+                    <span style="color: #94a3b8;">○ Sound Mix Advisor</span>
+                    <span style="color: #94a3b8;">1</span>
                 </div>
                 <div class="agent-item-desc">Dialogue isolation & ambient foley score synthesis</div>
             </div>
@@ -576,27 +570,27 @@ if nav_choice == "Overview":
         st.markdown("""
         <div class="surface-card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <span style="font-size: 0.85rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 0.05em;">AGENT ACTIVITY FEED</span>
-                <span style="font-size: 0.75rem; color: #c084fc; font-weight: 600; cursor: pointer;">Live Stream →</span>
+                <span style="font-size: 0.85rem; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.05em;">AGENT ACTIVITY FEED</span>
+                <span style="font-size: 0.75rem; color: #7c3aed; font-weight: 600; cursor: pointer;">Live Stream →</span>
             </div>
             
             <div class="activity-row">
-                <span style="color: #c084fc;">🟣</span> <span class="activity-agent">Continuity Tracker</span> <span class="activity-time">2m ago</span>
+                <span style="color: #7c3aed;">🟣</span> <span class="activity-agent">Continuity Tracker</span> <span class="activity-time">2m ago</span>
                 <div class="activity-desc">Wardrobe inconsistency flagged — Scene 47 Ext. Rooftop, jacket color differs from Sc.44</div>
             </div>
 
             <div class="activity-row">
-                <span style="color: #818cf8;">🔵</span> <span class="activity-agent">Shot List Manager</span> <span class="activity-time">14m ago</span>
+                <span style="color: #0284c7;">🔵</span> <span class="activity-agent">Shot List Manager</span> <span class="activity-time">14m ago</span>
                 <div class="activity-desc">Updated 8 shots for Day 18 exterior coverage after location scout revision</div>
             </div>
 
             <div class="activity-row">
-                <span style="color: #4ade80;">🟢</span> <span class="activity-agent">Script Doctor</span> <span class="activity-time">31m ago</span>
+                <span style="color: #16a34a;">🟢</span> <span class="activity-agent">Script Doctor</span> <span class="activity-time">31m ago</span>
                 <div class="activity-desc">Act II structural review complete — 3 pacing suggestions ready for review</div>
             </div>
 
             <div class="activity-row">
-                <span style="color: #c084fc;">🟣</span> <span class="activity-agent">VFX Pipeline Monitor</span> <span class="activity-time">1h ago</span>
+                <span style="color: #c026d3;">🟣</span> <span class="activity-agent">VFX Pipeline Monitor</span> <span class="activity-time">1h ago</span>
                 <div class="activity-desc">3 hero VFX shots cleared from Vendor B, delivery confirmed — on schedule</div>
             </div>
         </div>
@@ -606,23 +600,23 @@ if nav_choice == "Overview":
         st.markdown("""
         <div class="surface-card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <span style="font-size: 0.85rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: 0.05em;">SHOOT SCHEDULE</span>
-                <span style="font-size: 0.8rem; color: #a78bfa;">📅</span>
+                <span style="font-size: 0.85rem; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.05em;">SHOOT SCHEDULE</span>
+                <span style="font-size: 0.8rem; color: #64748b;">📅</span>
             </div>
 
             <div style="margin-bottom: 12px;">
-                <span class="sched-tag-today">TODAY</span> <span style="font-size: 0.75rem; color: #c4b5fd; margin-left: 5px;">Day 17</span>
-                <div style="font-size: 0.8rem; color: #ffffff; margin-top: 4px; font-weight: 500;">Sc.44 — Int. Precinct Office · Day</div>
-                <div style="font-size: 0.8rem; color: #ffffff; font-weight: 500;">Sc.45 — Int. Precinct Office · Day</div>
+                <span class="sched-tag-today">TODAY</span> <span style="font-size: 0.75rem; color: #64748b; margin-left: 5px;">Day 17</span>
+                <div style="font-size: 0.8rem; color: #0f172a; margin-top: 4px; font-weight: 600;">Sc.44 — Int. Precinct Office · Day</div>
+                <div style="font-size: 0.8rem; color: #0f172a; font-weight: 600;">Sc.45 — Int. Precinct Office · Day</div>
             </div>
 
             <div style="margin-bottom: 12px;">
-                <span class="sched-tag-future">TOMORROW</span> <span style="font-size: 0.75rem; color: #c4b5fd; margin-left: 5px;">Day 18</span>
-                <div style="font-size: 0.8rem; color: #ffffff; margin-top: 4px; font-weight: 500;">Sc.47 — Ext. Rooftop <span style="color: #c084fc;">(Weather TBD)</span></div>
-                <div style="font-size: 0.8rem; color: #ffffff; font-weight: 500;">Sc.48 — Ext. Rooftop · Dusk</div>
+                <span class="sched-tag-future">TOMORROW</span> <span style="font-size: 0.75rem; color: #64748b; margin-left: 5px;">Day 18</span>
+                <div style="font-size: 0.8rem; color: #0f172a; margin-top: 4px; font-weight: 600;">Sc.47 — Ext. Rooftop <span style="color: #7c3aed;">(Weather TBD)</span></div>
+                <div style="font-size: 0.8rem; color: #0f172a; font-weight: 600;">Sc.48 — Ext. Rooftop · Dusk</div>
             </div>
 
-            <div style="font-size: 0.72rem; color: #c4b5fd; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">ASK AN AGENT</div>
+            <div style="font-size: 0.72rem; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">ASK AN AGENT</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -642,7 +636,7 @@ elif nav_choice == "Screenwriters & Directors":
     st.markdown("""
     <div style="margin-bottom: 18px;">
         <h1 style="font-size: 1.5rem; margin: 0;">📁 Creative Workspace</h1>
-        <p style="color: #c4b5fd; font-size: 0.82rem; margin-top: 4px;">Automated Screenplay Breakdown, Scene Parsing & Table-Read Rehearsals</p>
+        <p style="color: #64748b; font-size: 0.82rem; margin-top: 4px;">Automated Screenplay Breakdown, Scene Parsing & Table-Read Rehearsals</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -712,7 +706,7 @@ elif nav_choice == "On-Set Crew":
     st.markdown("""
     <div style="margin-bottom: 18px;">
         <h1 style="font-size: 1.5rem; margin: 0;">🎥 On-Set Workspace</h1>
-        <p style="color: #c4b5fd; font-size: 0.82rem; margin-top: 4px;">Dynamic Production Call-Sheet Dispatcher & Crew Scheduling</p>
+        <p style="color: #64748b; font-size: 0.82rem; margin-top: 4px;">Dynamic Production Call-Sheet Dispatcher & Crew Scheduling</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -752,7 +746,7 @@ elif nav_choice == "Post-Production":
     st.markdown("""
     <div style="margin-bottom: 18px;">
         <h1 style="font-size: 1.5rem; margin: 0;">✂️ Post-Production Workspace</h1>
-        <p style="color: #c4b5fd; font-size: 0.82rem; margin-top: 4px;">Multimodal Continuity Inspector & Dailies Search Engine</p>
+        <p style="color: #64748b; font-size: 0.82rem; margin-top: 4px;">Multimodal Continuity Inspector & Dailies Search Engine</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -780,7 +774,7 @@ elif nav_choice == "Post-Production":
                         st.error(f"Error: {e}")
                 else:
                     time.sleep(1)
-                    st.markdown("<p style='color: #f87171; font-weight: 700;'>⚠️ CONTINUITY ISSUE DETECTED</p>", unsafe_allow_html=True)
+                    st.error("⚠️ CONTINUITY ISSUE DETECTED")
                     st.json({
                         "scene": sc_v,
                         "take": tk_v,
