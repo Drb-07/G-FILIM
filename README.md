@@ -91,7 +91,7 @@ $\kappa$ grows roughly in proportion to the noise factor, and the product $F_{id
 
 ![Loss growth, model check and gate split](results/figures/s3_gate_split.png)
 
-**Where the optimum sits.** $n^*$ is where the relative gain from one more step, $d\ln F_{ideal}/dn$, equals the loss rate $\kappa$. The gain shrinks as a power of $n$ while the loss stays constant, so a larger $\kappa$ moves the optimum to fewer steps, slowly. Heuristically, an infidelity falling as $n^{-s}$ gives $n^*\propto\kappa^{-1/(s+1)}$; with the measured $s\approx2.5$ a factor 4 in noise (0.5× to 2×) predicts roughly a 30% drop, and we observe 12–29% on the discrete grid (D: 8→7, B: 8→6, A: 7→5). This is a rough argument, not a fit.
+**Where the optimum sits.** $n^*$ is where the relative gain from one more step,$$\frac{d \ln F_{\text{ideal}}}{dn}$$, equals the loss rate $\kappa$. The gain shrinks as a power of $n$ while the loss stays constant, so a larger $\kappa$ moves the optimum to fewer steps, slowly. Heuristically, an infidelity falling as $n^{-s}$ gives $n^*\propto\kappa^{-1/(s+1)}$; with the measured $s\approx2.5$ a factor 4 in noise (0.5× to 2×) predicts roughly a 30% drop, and we observe 12–29% on the discrete grid (D: 8→7, B: 8→6, A: 7→5). This is a rough argument, not a fit.
 
 ## 7. Gate split and connectivity
 
